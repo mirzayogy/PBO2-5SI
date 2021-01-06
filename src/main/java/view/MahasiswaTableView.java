@@ -205,6 +205,7 @@ public class MahasiswaTableView extends javax.swing.JFrame {
             mahasiswa = new Mahasiswa();
             mahasiswa.setNpm(npm);
             mahasiswa.delete();
+            refresh();
         }else{
             JOptionPane.showMessageDialog(null, "Pilih dulu data");
         }
@@ -218,21 +219,7 @@ public class MahasiswaTableView extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        mahasiswa = new Mahasiswa();
-        ArrayList<Mahasiswa> list = mahasiswa.read();
-        DefaultTableModel tableModel = (DefaultTableModel) tbMahasiswa.getModel();
-        Object row[] = new Object[4];
-        
-        tableModel.setRowCount(0);
-        
-        for (int i = 0; i < list.size(); i++) {
-            row[0] = list.get(i).getNpm();
-            row[1] = list.get(i).getNama();
-            row[2] = list.get(i).getIpk();
-            row[3] = list.get(i).getJumlahMatakuliahSudahDiambil();
-
-            tableModel.addRow(row);
-        }
+        refresh();
     }//GEN-LAST:event_formWindowActivated
 
     /**
@@ -282,4 +269,22 @@ public class MahasiswaTableView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbMahasiswa;
     // End of variables declaration//GEN-END:variables
+
+    private void refresh() {
+        mahasiswa = new Mahasiswa();
+        ArrayList<Mahasiswa> list = mahasiswa.read();
+        DefaultTableModel tableModel = (DefaultTableModel) tbMahasiswa.getModel();
+        Object row[] = new Object[4];
+        
+        tableModel.setRowCount(0);
+        
+        for (int i = 0; i < list.size(); i++) {
+            row[0] = list.get(i).getNpm();
+            row[1] = list.get(i).getNama();
+            row[2] = list.get(i).getIpk();
+            row[3] = list.get(i).getJumlahMatakuliahSudahDiambil();
+
+            tableModel.addRow(row);
+        }
+    }
 }
