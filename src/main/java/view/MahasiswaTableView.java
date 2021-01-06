@@ -6,6 +6,7 @@
 package view;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Mahasiswa;
 
@@ -175,18 +176,24 @@ public class MahasiswaTableView extends javax.swing.JFrame {
         
         int barisTerpilih = tbMahasiswa.getSelectedRow();
         
-        String npm = tbMahasiswa.getValueAt(barisTerpilih, 0).toString();
-        String nama = tbMahasiswa.getValueAt(barisTerpilih, 1).toString();
-        double ipk = Double.parseDouble(tbMahasiswa.getValueAt(barisTerpilih, 2).toString());
-        int jumlah = Integer.parseInt(tbMahasiswa.getValueAt(barisTerpilih, 3).toString());
+        if(barisTerpilih >= 0){
+            String npm = tbMahasiswa.getValueAt(barisTerpilih, 0).toString();
+            String nama = tbMahasiswa.getValueAt(barisTerpilih, 1).toString();
+            double ipk = Double.parseDouble(tbMahasiswa.getValueAt(barisTerpilih, 2).toString());
+            int jumlah = Integer.parseInt(tbMahasiswa.getValueAt(barisTerpilih, 3).toString());
 
-        Mahasiswa mahasiswa = new Mahasiswa(npm,nama,jumlah,ipk);
+            Mahasiswa mahasiswa = new Mahasiswa(npm,nama,jumlah,ipk);
+
+            MahasiswaView mahasiswaView = new MahasiswaView(mahasiswa);
+            mahasiswaView.taruhKomponen();
+            mahasiswaView.isiData();
+            mahasiswaView.tampil();
+            mahasiswaView.beriEvent();
+        }else{
+            JOptionPane.showMessageDialog(null, "Pilih dulu data");
+        }
         
-        MahasiswaView mahasiswaView = new MahasiswaView(mahasiswa);
-        mahasiswaView.taruhKomponen();
-        mahasiswaView.isiData();
-        mahasiswaView.tampil();
-        mahasiswaView.beriEvent();
+        
     }//GEN-LAST:event_btUbahActionPerformed
 
     private void btHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHapusActionPerformed
