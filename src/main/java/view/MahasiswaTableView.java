@@ -57,6 +57,11 @@ public class MahasiswaTableView extends javax.swing.JFrame {
         });
 
         btCari.setText("Cari");
+        btCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCariActionPerformed(evt);
+            }
+        });
 
         tbMahasiswa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -101,6 +106,11 @@ public class MahasiswaTableView extends javax.swing.JFrame {
         });
 
         btBatal.setText("Batal");
+        btBatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBatalActionPerformed(evt);
+            }
+        });
 
         btTutup.setText("Tutup");
         btTutup.addActionListener(new java.awt.event.ActionListener() {
@@ -231,6 +241,31 @@ public class MahasiswaTableView extends javax.swing.JFrame {
         // TODO add your handling code here:
         refresh();
     }//GEN-LAST:event_formWindowActivated
+
+    private void btBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBatalActionPerformed
+        // TODO add your handling code here:
+        refresh();
+    }//GEN-LAST:event_btBatalActionPerformed
+
+    private void btCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCariActionPerformed
+        // TODO add your handling code here:
+        mahasiswa = new Mahasiswa();
+        String keywords = etCari.getText();
+        ArrayList<Mahasiswa> list = mahasiswa.search(keywords);
+        DefaultTableModel tableModel = (DefaultTableModel) tbMahasiswa.getModel();
+        Object row[] = new Object[4];
+        
+        tableModel.setRowCount(0);
+        
+        for (int i = 0; i < list.size(); i++) {
+            row[0] = list.get(i).getNpm();
+            row[1] = list.get(i).getNama();
+            row[2] = list.get(i).getIpk();
+            row[3] = list.get(i).getJumlahMatakuliahSudahDiambil();
+
+            tableModel.addRow(row);
+        }
+    }//GEN-LAST:event_btCariActionPerformed
 
     /**
      * @param args the command line arguments

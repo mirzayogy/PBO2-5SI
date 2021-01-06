@@ -87,6 +87,39 @@ public class Mahasiswa {
         
     }
     
+    public ArrayList<Mahasiswa> search(String keywords){
+        ArrayList<Mahasiswa> list = new ArrayList<Mahasiswa>();
+        
+        String searchSQL = "SELECT * FROM mahasiswa WHERE npm like ? OR nama like ?";
+        String wildcardKeywords = "%" + keywords + "%";
+        PreparedStatement ps;
+        
+        try {
+            
+            ps = con.prepareStatement(searchSQL);
+            ps.setString(1, wildcardKeywords);
+            ps.setString(2, wildcardKeywords);
+            ResultSet resultSet;
+            resultSet = ps.executeQuery();
+            
+            while(resultSet.next()){
+                Mahasiswa mahasiswa = new Mahasiswa(
+                    resultSet.getString("npm"),
+                    resultSet.getString("nama"),
+                    resultSet.getInt("jumlah_matakuliah"),
+                    resultSet.getDouble("ipk"));
+                
+                list.add(mahasiswa);
+            }
+            
+            return list;
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+            return null;
+        }
+        
+    }
+    
     public void update(){
         String updateSql = "UPDATE mahasiswa SET "
                 + "nama = ?, "
