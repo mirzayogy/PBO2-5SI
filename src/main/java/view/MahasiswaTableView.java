@@ -198,6 +198,16 @@ public class MahasiswaTableView extends javax.swing.JFrame {
 
     private void btHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHapusActionPerformed
         // TODO add your handling code here:
+        int barisTerpilih = tbMahasiswa.getSelectedRow();
+        
+        if(barisTerpilih >= 0){
+            String npm = tbMahasiswa.getValueAt(barisTerpilih, 0).toString();
+            mahasiswa = new Mahasiswa();
+            mahasiswa.setNpm(npm);
+            mahasiswa.delete();
+        }else{
+            JOptionPane.showMessageDialog(null, "Pilih dulu data");
+        }
     }//GEN-LAST:event_btHapusActionPerformed
 
     private void btTutupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTutupActionPerformed
